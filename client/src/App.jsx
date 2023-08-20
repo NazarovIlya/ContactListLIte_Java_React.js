@@ -9,20 +9,20 @@ const App = () => {
   const [items, setItems] = useState(
     [
       { id: '1', fullName: '123', phone: '+7 123 456 789', comment: 'comment 1' },
-      { id: '2', fullName: '123', phone: '+7 123 456 789', comment: 'comment 4' },
+      { id: '2', fullName: '123', phone: '+7 123 456 789', comment: 'comment 2' },
       // { id: '3', fullName: '123', phone: '+7 123 456 789', comment: 'comment 3' },
       // { id: '4', fullName: '123', phone: '+7 123 456 789', comment: 'comment 4' },
     ]
   )
-
-  let counter = items.length;
   
-  const addContact = () => {
+  const addContact = (fullName, phone, comment) => {
+
+    const currentId = items.length + 1
     const temp = {
-      id: `${++counter}`,
-      fullName: 'new 123',
-      phone: '+7 123 456 789',
-      comment: `NEW! comment ${counter}`
+      id: currentId,
+      fullName: fullName,
+      phone: phone,
+      comment: comment
     };
     setItems([...items, temp]);
   }
