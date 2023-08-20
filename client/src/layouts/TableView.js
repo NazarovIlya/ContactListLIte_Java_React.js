@@ -21,7 +21,7 @@ const TableView = (props) => {
         </tr> */}
         {
           props.data.map(item => (
-            <TableRowItem contact={ item } />
+            <TableRowItem contact={item} />
           ))
         }
 
