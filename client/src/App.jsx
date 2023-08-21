@@ -14,15 +14,28 @@ const App = () => {
       // { id: '4', fullName: '123', phone: '+7 123 456 789', comment: 'comment 4' },
     ]
   )
+
+
+  const generateId = () => {
+    let tempId = 0;
+    items.forEach((el) => {
+      const id = Number(el.id);
+      if (tempId < id) {
+        tempId = id;
+      }
+    })
+    return ++tempId;
+  }
   
   const addContact = (fullName, phone, comment) => {
-
-    const currentId = items.length + 1
+    
+    const currentId = generateId();
+    console.log(currentId);
     const temp = {
       id: currentId,
       fullName: fullName,
       phone: phone,
-      comment: comment
+      comment: `${comment} ${currentId}`
     };
     setItems([...items, temp]);
   }
@@ -43,7 +56,6 @@ const App = () => {
         </div>
       </div>
    </div>
-    
   );
 }
 
