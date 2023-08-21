@@ -1,20 +1,37 @@
 import './App.css';
 import TableView from './layouts/TableView';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormNewItem from './layouts/formNewItem/FormNewItem';
+import axios from 'axios'
 
 
 const App = () => {
 
-  const [items, setItems] = useState(
-    [
-      { id: '1', fullName: '123', phone: '+7 123 456 789', comment: 'comment 1' },
-      { id: '2', fullName: '123', phone: '+7 123 456 789', comment: 'comment 2' },
-      // { id: '3', fullName: '123', phone: '+7 123 456 789', comment: 'comment 3' },
-      // { id: '4', fullName: '123', phone: '+7 123 456 789', comment: 'comment 4' },
-    ]
-  )
+  const [items, setItems] = useState([]
+    // [
+    //   { id: '1', fullName: '123', phone: '+7 123 456 789', comment: 'comment 1' },
+    //   { id: '2', fullName: '123', phone: '+7 123 456 789', comment: 'comment 2' },
+    // { id: '3', fullName: '123', phone: '+7 123 456 789', comment: 'comment 3' },
+    // { id: '4', fullName: '123', phone: '+7 123 456 789', comment: 'comment 4' },
+    // ]
+  );
 
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/contacts')
+      .then(responce => {
+        const data = [];
+        responce.data._embedded.contacts.forEach(item => {
+          data.push(
+            {
+              fullName: item.fullName,
+              phone: item.phone,
+              comments: item.comments
+            }
+          )
+        })
+        setItems(data);
+      })
+  }, []);
 
   const generateId = () => {
     let tempId = 0;
