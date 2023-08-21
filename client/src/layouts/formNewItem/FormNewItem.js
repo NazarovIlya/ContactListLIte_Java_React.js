@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 
-
 const FormNewItem = (props) => {
 
   const [fullName, setFullName] = useState('');

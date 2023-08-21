@@ -26,6 +26,11 @@ const App = () => {
     };
     setItems([...items, temp]);
   }
+
+  const removeContact = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
   return (
     <div className='container mt-5'>
       <div className='card'>
@@ -33,7 +38,7 @@ const App = () => {
           <h1>Contact list</h1>
         </div>
         <div className='card-body'>
-          <TableView data={items} />
+          <TableView data={items} removeContact={ removeContact } />
           <FormNewItem addContact={ addContact } />
         </div>
       </div>
