@@ -22,6 +22,7 @@ const TableView = (props) => {
         {
           props.data.map(item => (
             <TableRowItem
+              key={item.id}
               removeContact={props.removeContact}
               contact={item}
             />

@@ -30,7 +30,6 @@ const App = () => {
   const addContact = (fullName, phone, comment) => {
     
     const currentId = generateId();
-    console.log(currentId);
     const temp = {
       id: currentId,
       fullName: fullName,
