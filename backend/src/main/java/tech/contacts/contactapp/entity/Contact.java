@@ -17,7 +17,7 @@ public class Contact {
   @Column(name = "id")
   private long id;
 
-  @Column(name = "fullName")
+  @Column(name = "full_name")
   private String fullName;
 
   @Column(name = "phone")
