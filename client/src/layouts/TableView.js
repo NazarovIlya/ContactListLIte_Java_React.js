@@ -7,6 +7,7 @@ const TableView = (props) => {
       <thead>
         <tr>
           <th scope='col'>#</th>
+          <th scope='col'>ID</th>
           <th scope='col'>ФИО</th>
           <th scope='col'>Телефон</th>
           <th scope='col'>Комментарий</th>
@@ -14,11 +15,12 @@ const TableView = (props) => {
       </thead>
       <tbody>
         {
-          props.data.map(item => (
+          props.data.map((item, index) => (
             <TableRowItem
               key={item.id}
               removeContact={props.removeContact}
               contact={item}
+              index={++index}
             />
           ))
         }

@@ -29,20 +29,9 @@ const App = (props) => {
       })
   }, [URL_API]);
 
-  // const generateId = () => {
-  //   let tempId = 0;
-  //   items.forEach((el) => {
-  //     const id = Number(el.id);
-  //     if (tempId < id) {
-  //       tempId = id;
-  //     }
-  //   })
-  //   return ++tempId;
-  // }
   
   const addContact = (fullName, phone, comment) => {
     
-    // const currentId = generateId();
     const temp = {
       // id: currentId,
       fullName: fullName,
@@ -51,8 +40,11 @@ const App = (props) => {
     };
 
     const url = `${URL_API}/contacts`;
-    axios.post(url, temp);
-    setItems([...items, temp]);
+    axios.post(url, temp)
+      .then(e => {
+        temp.id = e.data.id;
+        setItems([...items, temp]);
+      });
   }
 
   const removeContact = (id) => {
