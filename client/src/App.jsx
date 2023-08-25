@@ -5,24 +5,20 @@ import FormNewItem from './layouts/formNewItem/FormNewItem';
 import axios from 'axios'
 
 
-const App = () => {
+const App = (props) => {
 
-  const [items, setItems] = useState([]
-    // [
-    //   { id: '1', fullName: '123', phone: '+7 123 456 789', comment: 'comment 1' },
-    //   { id: '2', fullName: '123', phone: '+7 123 456 789', comment: 'comment 2' },
-    // { id: '3', fullName: '123', phone: '+7 123 456 789', comment: 'comment 3' },
-    // { id: '4', fullName: '123', phone: '+7 123 456 789', comment: 'comment 4' },
-    // ]
-  );
+  const URL_API = props.url;
+
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/contacts')
+    axios.get(`${URL_API}/contacts`)
       .then(responce => {
         const data = [];
         responce.data._embedded.contacts.forEach(item => {
           data.push(
             {
+              id:item.id,
               fullName: item.fullName,
               phone: item.phone,
               comments: item.comments
@@ -31,32 +27,37 @@ const App = () => {
         })
         setItems(data);
       })
-  }, []);
+  }, [URL_API]);
 
-  const generateId = () => {
-    let tempId = 0;
-    items.forEach((el) => {
-      const id = Number(el.id);
-      if (tempId < id) {
-        tempId = id;
-      }
-    })
-    return ++tempId;
-  }
+  // const generateId = () => {
+  //   let tempId = 0;
+  //   items.forEach((el) => {
+  //     const id = Number(el.id);
+  //     if (tempId < id) {
+  //       tempId = id;
+  //     }
+  //   })
+  //   return ++tempId;
+  // }
   
   const addContact = (fullName, phone, comment) => {
     
-    const currentId = generateId();
+    // const currentId = generateId();
     const temp = {
-      id: currentId,
+      // id: currentId,
       fullName: fullName,
       phone: phone,
-      comment: `${comment} ${currentId}`
+      comment: comment
     };
+
+    const url = `${URL_API}/contacts`;
+    axios.post(url, temp);
     setItems([...items, temp]);
   }
 
   const removeContact = (id) => {
+    const url = `${URL_API}/contacts/${id}`;
+    axios.delete(url);
     setItems(items.filter((item) => item.id !== id));
   }
 
